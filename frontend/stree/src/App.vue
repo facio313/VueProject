@@ -2,14 +2,12 @@
 import Header from './components/layout/Header.vue'
 import Aside from './components/layout/Aside.vue'
 import Main from './components/layout/Main.vue'
-// import Footer from './components/layout/Footer.vue'
 </script>
 
 <template>
     <Header/>
     <Aside/>
     <Main/>
-    <!-- <Footer/> -->
 </template>
 
 <style scoped>

@@ -1,27 +1,29 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
-import PrimeVue from 'primevue/config';
-import Aura from '@primevue/themes/aura';
-import StyleClass from 'primevue/styleclass';
 
+import PrimeVue from 'primevue/config';
+import StyleClass from 'primevue/styleclass';
 import Ripple from 'primevue/ripple';
+import Aura from '@primevue/themes/aura';
+import 'primeicons/primeicons.css';
+import Button from 'primevue/button';
+import Drawer from 'primevue/drawer';
+import Avatar from 'primevue/avatar';
 
 const app = createApp(App);
 
 app.use(PrimeVue, {
-    // Default theme configuration
     theme: {
-        preset: Aura,
-        options: {
-            prefix: 'p',
-            darkModeSelector: 'system',
-            cssLayer: false
-        }
+        preset: Aura
     }
- });
+});
 
- app.directive('styleclass', StyleClass);
- app.directive('ripple', Ripple)
+app.component('Button', Button);
+app.component('Drawer', Drawer);
+app.component('Avatar', Avatar);
 
- app.mount('#app')
+app.directive('styleclass', StyleClass);
+app.directive('ripple', Ripple)
+
+app.mount('#app')

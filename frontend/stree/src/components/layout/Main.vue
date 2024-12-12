@@ -1,7 +1,20 @@
+<template>
+    <main>
+        <section>
+            <MID/>
+            <h1>Main Content</h1>
+            <p>This is the main content of the page.</p>     
+            <h1>{{ message }}</h1>       
+            <Map/>
+        </section>
+    </main>
+</template>
+
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Map from '../map/Map.vue';
+import MID from '../../views/Layout_mid.vue';
 
 const message = ref('');
 
@@ -15,17 +28,6 @@ onMounted(() => {
     });
 });
 </script>
-
-<template>
-    <main>
-        <section>
-            <h1>Main Content</h1>
-            <p>This is the main content of the page.</p>     
-            <h1>{{ message }}</h1>       
-            <Map/>
-        </section>
-    </main>
-</template>
 
 <style scoped>
 main {

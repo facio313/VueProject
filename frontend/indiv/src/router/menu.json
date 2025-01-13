@@ -1,0 +1,43 @@
+{
+    "menu": {
+        "home": [
+            {"path": "", "name": "Main", "component": ""},
+            {"path": "", "name": "About", "component": ""},
+            {"path": "", "name": "Setting", "component": ""}
+        ],
+        "dashboard": [
+            {"path": "", "name": "Dashboard", "component": ""},
+            {"path": "", "name": "Grid", "component": ""},
+            {"path": "", "name": "Setting", "component": ""}
+        ],
+        "thread": [
+            {"path": "", "name": "Thread", "component": ""},
+            {"path": "", "name": "Sort", "component": ""},
+            {"path": "", "name": "Race", "component": ""}
+        ],
+        "batch": [
+            {"path": "", "name": "Batch", "component": ""},
+            {"path": "", "name": "Scheduler", "component": ""},
+            {"path": "", "name": "BatchDetail", "component": ""}
+        ],
+        "chart": [
+            {"path": "", "name": "Chart", "component": ""},
+            {"path": "", "name": "Pie", "component": ""},
+            {"path": "", "name": "Graph", "component": ""}
+        ],
+        "map": [
+            {"path": "", "name": "Map", "component": ""},
+            {"path": "", "name": "Show", "component": ""},
+            {"path": "", "name": "Operation", "component": ""}
+        ],
+        "etc": [
+            {"path": "", "name": "Etc", "component": ""},
+            {"path": "", "name": "POI", "component": ""},
+            {"path": "", "name": "File", "component": ""},
+            {"path": "", "name": "Http", "component": ""},
+            {"path": "", "name": "Ajax", "component": ""},
+            {"path": "", "name": "Param", "component": ""},
+            {"path": "", "name": "Security", "component": ""}
+        ]
+    }
+}

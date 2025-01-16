@@ -2,18 +2,21 @@
     <div class="aside" :style="{ left: asideLeft }" @mouseover="mouseOverAside" @mouseleave="mouseLeaveAside">
         <img class="logo" src="@/assets/logo.png"/>
         <div class="subMenuDiv">
-            <a class="subMenu" v-for="subMenu in subMenuList" :href="subMenu.url">{{  subMenu.label }}</a>
+            <RouterLink class="subMenu" v-for="subMenu in subMenuList" :to="subMenu.path">{{  subMenu.name }}</RouterLink>
         </div>
         <button class="asideBtn" disabled>{{ asideBtn }}</button>
     </div>
 </template>
-<script setup>
-import { ref } from 'vue';
 
+<script setup>
+import { ref, computed } from 'vue';
+import { useMenuStore } from '@/stores/menu';
+
+/* 동작 */
 const asideLeft = ref('-275px');
 const asideBtn = ref('▶');
 
-function mouseOverAisde() {
+function mouseOverAside() {
     asideLeft.value = '0';
     asideBtn.value = '◀';
 }
@@ -23,15 +26,14 @@ function mouseLeaveAside() {
     asideBtn.value = '▶';
 }
 
-const subMenuList = ref([]);
-subMenuList.value = [
-    {label: '서브메뉴1', url: '/'}
-    , {label: '서브메뉴2', url: '/'}
-    , {label: '서브메뉴3', url: '/'}
-    , {label: '서브메뉴4', url: '/'}
-    , {label: '서브메뉴5', url: '/'}
-];
+/* 메뉴*/
+const menuStore = useMenuStore();
+const subMenuList = computed(() => {
+    return menuStore.subMenu;
+});
+
 </script>
+
 <style scoped>
 .aside {
     position: absolute;

@@ -1,21 +1,22 @@
 <template>
-    <router-link class="menu" v-for="menu in menuList" :to="menu.url">
-        {{ menu.label }}
+    <router-link class="menu" v-for="menu in menuList" :id="menu.name" :to="menu.path" @click="selectMenu">
+        {{ menu.name }}
     </router-link>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import { useMenuStore } from '@/stores/menu';
+
 const menuList = ref([]);
-menuList.value = [
-    {label: 'Home', url: '/'},
-    {label: 'Dashboard', url: '/dashboard'},
-    {label: 'Thread', url: '/thread'},
-    {label: 'Batch', url: '/batch'},
-    {label: 'Chart', url: '/chart'},
-    {label: 'Map', url: '/map'},
-    {label: 'Etc', url: '/etc'}
-];
+const menuStore = useMenuStore();
+menuList.value = menuStore.mainMenu;
+
+function selectMenu(event) {
+    document.querySelectorAll('.menu').forEach(menu => menu.style.color = 'white');
+    event.target.style.color = 'black';
+    menuStore.setMenu(event.target.id);
+}
 </script>
 
 <style scoped>

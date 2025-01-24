@@ -6,7 +6,8 @@ export const useMenuStore = defineStore('menu', {
         selectedMenu: null,
         priorMenu: 'Home',
         mainMenu: menuData.filter(menu => menu.level == 0),
-        subMenu: []
+        subMenu: [],
+        tab: []
     }),
     actions: {
         setMenu(menu) {

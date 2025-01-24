@@ -17,6 +17,7 @@ main {
     padding-right: 25px;
     padding-bottom: 50px;
     height: calc(100% - 100px);
+    overflow: none;
 }
 section {
     background-color: white;
@@ -24,5 +25,6 @@ section {
     padding: 1%;
     height: 100%;
     overflow-y: auto;
+    transition: all 0.5s ease;
 }
 </style>

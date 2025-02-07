@@ -12,14 +12,14 @@ export const useMenuStore = defineStore('menu', {
     }),
     actions: {
         setMenu(menuName) {
-            this.priorMenu = this.selectedMenu;
+            this.priorMenu.name = this.selectedMenu;
             this.selectedMenu = menuName;
             if (this.priorMenu.name != this.selectedMenu) {
                 this.setSubMenus();
             }
         },
         setSubMenus() {
-            this.subMenu = menuData.filter(subMenu => subMenu.sort == this.selectedMenu);
+            this.subMenus = menuData.filter(subMenu => subMenu.sort == this.selectedMenu);
         },
         setTabs(event) {
             const tabId = event.target.id;
@@ -30,7 +30,7 @@ export const useMenuStore = defineStore('menu', {
             }
         },
         deleteTab(tabId) {
-            this.tabs.forEach(tab, index => {
+            this.tabs.forEach((tab, index) => {
                 if (tab.name == tabId) {
                     this.tabs.splice(index, 1);
                 }

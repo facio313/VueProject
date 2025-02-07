@@ -2,7 +2,7 @@
     <div class="aside" :style="{ left: asideLeft }" @mouseover="mouseOverAside" @mouseleave="mouseLeaveAside">
         <img class="logo" src="@/assets/logo.png"/>
         <div class="subMenuDiv">
-            <RouterLink class="subMenu" v-for="subMenu in subMenuList" :to="subMenu.path">{{  subMenu.name }}</RouterLink>
+            <RouterLink class="subMenu" v-for="subMenu in subMenus" :to="subMenu.path" @click="menuStore.setTabs($event)" :id="subMenu.name">{{  subMenu.name }}</RouterLink>
         </div>
         <button class="asideBtn" disabled>{{ asideBtn }}</button>
     </div>
@@ -28,9 +28,7 @@ function mouseLeaveAside() {
 
 /* 메뉴*/
 const menuStore = useMenuStore();
-const subMenuList = computed(() => {
-    return menuStore.subMenu;
-});
+const subMenus = computed(() => menuStore.subMenus);
 
 </script>
 

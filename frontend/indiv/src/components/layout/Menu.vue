@@ -1,5 +1,5 @@
 <template>
-    <router-link class="menu" v-for="menu in menuList" :id="menu.name" :to="menu.path" @click="selectMenu">
+    <router-link class="menu" v-for="menu in mainMenus" :id="menu.name" :to="menu.path" @click="selectMenu">
         {{ menu.name }}
     </router-link>
 </template>
@@ -8,14 +8,18 @@
 import { ref } from 'vue';
 import { useMenuStore } from '@/stores/menu';
 
-const menuList = ref([]);
+const mainMenus = ref([]);
 const menuStore = useMenuStore();
-menuList.value = menuStore.mainMenu;
+mainMenus.value = menuStore.mainMenus;
 
 function selectMenu(event) {
+    const targetMenu = event.target;
+
     document.querySelectorAll('.menu').forEach(menu => menu.style.color = 'white');
-    event.target.style.color = 'black';
-    menuStore.setMenu(event.target.id);
+    targetMenu.style.color = 'black';
+
+    menuStore.setMenu(targetMenu.id);
+    menuStore.setTabs(event);
 }
 </script>
 

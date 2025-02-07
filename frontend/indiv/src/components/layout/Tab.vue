@@ -1,26 +1,15 @@
 <template>
-    <a class="tab" v-for="(tab, index) in tabList" :key="index" :id="`tab${index}`" @click="activateTab">{{ tab.label }}</a>
+    <RouterLink class="tab" v-for="tab in tabs" :id="tab.name" :to="tab.path" @click="menuStore.activateTab(tab.name)">
+        {{ tab.name }}
+    </RouterLink>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
+import { useMenuStore } from '@/stores/menu';
 
-const tabList = ref([]);
-tabList.value = [
-    {label: '탭1', url: '/'},
-    {label: '탭2', url: '/'},
-    {label: '탭3', url: '/'},
-    {label: '탭4', url: '/'},
-    {label: '탭5', url: '/'}
-];
-
-function activateTab(event) {
-    const allTabs = document.querySelectorAll('.tab');
-    allTabs.forEach(tab => {
-        tab.style.background = 'rgb(238, 235, 222)';
-    });
-    event.target.style.background = 'white';
-}
+const menuStore = useMenuStore();
+const tabs = computed(() => menuStore.tabs);
 </script>
 
 <style scoped>

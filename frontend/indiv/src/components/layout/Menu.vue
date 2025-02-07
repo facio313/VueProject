@@ -1,5 +1,5 @@
 <template>
-    <router-link class="menu" v-for="menu in mainMenus" :id="menu.name" :to="menu.path" @click="selectMenu">
+    <router-link class="menu" v-for="menu in mainMenus" :id="menu.id" :to="menu.path" @click="selectMenu">
         {{ menu.name }}
     </router-link>
 </template>
@@ -25,7 +25,7 @@ function selectMenu(event) {
 
 <style scoped>
 .menu {
-    font-family: fantasy;
+    font-family: inherit;
     font-size: 1.5rem;
     color: white;
     text-decoration: none;

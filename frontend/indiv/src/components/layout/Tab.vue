@@ -1,6 +1,7 @@
 <template>
-    <RouterLink class="tab" v-for="tab in tabs" :id="tab.name" :to="tab.path" :style="{ background: menuStore.activeTab == tab.name ? 'rgb(255, 255, 255)' : 'rgb(238, 235, 222)' }">
+    <RouterLink class="tab" v-for="tab in tabs" :id="tab.id" :to="tab.path" @click="() => menuStore.activeTab = tab.id" :style="{ background: menuStore.activeTab == tab.id ? 'rgb(255, 255, 255)' : 'rgb(238, 235, 222)' }">
         {{ tab.name }}
+        <button class="tabDeleteBtn" @click="menuStore.deleteTab(tab.id)">x</button>
     </RouterLink>
 </template>
 
@@ -14,7 +15,7 @@ const tabs = computed(() => menuStore.tabs);
 
 <style scoped>
 .tab {
-    font-family: fantasy;
+    font-family: inherit;
     font-size: 1.1rem;
     text-decoration: none;
     padding: 5px;
@@ -23,5 +24,8 @@ const tabs = computed(() => menuStore.tabs);
     background: rgb(238, 235, 222);
     border-radius: 5px 5px 0px 0px;
     border: 1px solid white;
+}
+.tabDeleteBtn {
+
 }
 </style>

@@ -2,7 +2,7 @@
     <div class="aside" :style="{ left: asideLeft }" @mouseover="mouseOverAside" @mouseleave="mouseLeaveAside">
         <img class="logo" src="@/assets/logo.png"/>
         <div class="subMenuDiv">
-            <RouterLink class="subMenu" v-for="subMenu in subMenus" :to="subMenu.path" @click="menuStore.setTabs($event)" :id="subMenu.name">{{  subMenu.name }}</RouterLink>
+            <RouterLink class="subMenu" v-for="subMenu in subMenus" :to="subMenu.path" @click="menuStore.setTabs($event)" :id="subMenu.id">{{  subMenu.name }}</RouterLink>
         </div>
         <button class="asideBtn" disabled>{{ asideBtn }}</button>
     </div>
@@ -64,7 +64,7 @@ const subMenus = computed(() => menuStore.subMenus);
     padding: 10%;
 }
 .subMenu {
-    font-family: fantasy;
+    font-family: inherit;
     font-size: 1.1rem;
     color: white;
     text-decoration: none;

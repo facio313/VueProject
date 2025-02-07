@@ -1,5 +1,5 @@
 <template>
-    <RouterLink class="tab" v-for="tab in tabs" :id="tab.name" :to="tab.path" @click="menuStore.activateTab(tab.name)">
+    <RouterLink class="tab" v-for="tab in tabs" :id="tab.name" :to="tab.path" :style="{ background: menuStore.activeTab == tab.name ? 'rgb(255, 255, 255)' : 'rgb(238, 235, 222)' }">
         {{ tab.name }}
     </RouterLink>
 </template>
@@ -20,7 +20,7 @@ const tabs = computed(() => menuStore.tabs);
     padding: 5px;
     width: 10%;
     height: 100%;
-    background-color: rgb(238, 235, 222);
+    background: rgb(238, 235, 222);
     border-radius: 5px 5px 0px 0px;
     border: 1px solid white;
 }

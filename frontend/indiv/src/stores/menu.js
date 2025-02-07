@@ -27,6 +27,7 @@ export const useMenuStore = defineStore('menu', {
 
             if (!tabNames.includes(tabId)) {
                 this.tabs.push(menuData.filter(menu => menu.name == tabId)[0]);
+                this.activeTab = tabId;
             }
         },
         deleteTab(tabId) {
@@ -36,15 +37,5 @@ export const useMenuStore = defineStore('menu', {
                 }
             });
         },
-        activateTab(tabId) {
-            const allTabs = document.querySelectorAll('.tab');
-            allTabs.forEach(tab => {
-                if (tab.id != tabId) {
-                    tab.style.background = 'rgb(238, 235, 222)';
-                } else {
-                    tab.style.background = 'rgb(255, 255, 255)';
-                }
-            });
-        }
     }
 });

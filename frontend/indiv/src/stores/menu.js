@@ -3,12 +3,12 @@ import menuData from '@/router/menu.json';
 
 export const useMenuStore = defineStore('menu', {
     state: () => ({
-        selectedMenu: null,
+        selectedMenu: 'Home',
         priorMenu: menuData.filter(menu => menu.id == 'Home'),
         mainMenus: menuData.filter(menu => menu.level == 0),
         subMenus: menuData.filter(menu => menu.sort == 'Home'),
         tabs: [menuData.filter(menu => menu.id == 'Home')[0]],
-        activeTab: null,
+        activeTab: 'Home',
     }),
     actions: {
         setMenu(menuId) {
@@ -36,6 +36,7 @@ export const useMenuStore = defineStore('menu', {
                     this.tabs.splice(index, 1);
                 }
             });
+            // activeTab이랑 router 보여주는 것 바꾸기
         },
     }
 });

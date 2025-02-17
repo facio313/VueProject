@@ -4,17 +4,21 @@ import menuData from '@/router/menu.json';
 export const useMenuStore = defineStore('menu', {
     state: () => ({
         selectedMenu: 'Home',
+        activeMainMenu: 'Home',
+        activeTab: 'Home',
+        priorMainMenu: '',
         priorMenu: menuData.filter(menu => menu.id == 'Home'),
         mainMenus: menuData.filter(menu => menu.level == 0),
         subMenus: menuData.filter(menu => menu.sort == 'Home'),
         tabs: [menuData.filter(menu => menu.id == 'Home')[0]],
-        activeTab: 'Home',
     }),
     actions: {
-        setMenu(menuId) {
-            this.priorMenu.id = this.selectedMenu;
+        setMainMenu(menuId) {
+            this.priorMenu = menuData.filter(menu => menu.id == this.selectedMenu);
+            this.priorMainMenu = this.priorMenu.sort;
             this.selectedMenu = menuId;
-            if (this.priorMenu.id != this.selectedMenu) {
+            this.activeMainMenu = menuData.filter(menu => menu.id == menuId)[0].sort;
+            if (this.priorMainMenu != this.activeMainMenu) {
                 this.setSubMenus();
             }
         },

@@ -1,5 +1,5 @@
 <template>
-    <router-link class="menu" v-for="menu in mainMenus" :id="menu.id" :to="menu.path" @click="selectMenu">
+    <router-link class="menu" v-for="menu in mainMenus" :id="menu.id" :to="menu.path" @click="selectMenu($event)" :style="{ color: menuStore.activeMainMenu == menu.id ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)' }">
         {{ menu.name }}
     </router-link>
 </template>
@@ -13,12 +13,7 @@ const menuStore = useMenuStore();
 mainMenus.value = menuStore.mainMenus;
 
 function selectMenu(event) {
-    const targetMenu = event.target;
-
-    document.querySelectorAll('.menu').forEach(menu => menu.style.color = 'white');
-    targetMenu.style.color = 'black';
-
-    menuStore.setMenu(targetMenu.id);
+    menuStore.setMainMenu(event.target.id);
     menuStore.setTabs(event);
 }
 </script>

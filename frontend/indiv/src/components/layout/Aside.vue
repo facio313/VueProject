@@ -37,7 +37,7 @@ const subMenus = computed(() => menuStore.subMenus);
     position: absolute;
     width: 300px;
     height: 100%;
-    background-color: rgb(203, 187, 171);
+    background-color: rgb(203, 187, 171, 0.7);
     display: flex;
     flex-direction: column;
     transition: all 0.5s ease;

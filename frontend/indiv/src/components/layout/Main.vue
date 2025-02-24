@@ -25,11 +25,14 @@ const cachedComponents = ref([]);
 onMounted(() => {
     if (route.path === '/') {
         router.push('/home');
+        cachedComponents.value.push('Home')
     }
 });
 
 // 탭 새로고침 방지 (탭 변경 시 캐시 업데이트))
 watch(() => menuStore.activeTab, (newTab) => {
+    console.log(cachedComponents.value);
+    console.log(newTab)
     if (!cachedComponents.value.includes(newTab)) {
         cachedComponents.value.push(newTab);
     }

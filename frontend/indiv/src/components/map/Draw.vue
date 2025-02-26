@@ -49,19 +49,25 @@ const addInteractions = () => {
 };
 
 watch(() => props.map, (newMap) => {
-  if (newMap) {
-    newMap.addLayer(vectorLayer);
-    modify.value = new Modify({ source: vectorSource });
-    newMap.addInteraction(modify.value);
-    addInteractions();
-  }
-});
+    if (newMap) {
+      newMap.addLayer(vectorLayer);
+      modify.value = new Modify({ source: vectorSource });
+      newMap.addInteraction(modify.value);
+      addInteractions();
+    }
+  },
+  {
+    flush: "post"}
+);
 
 watch(typeSelect, () => {
-  if (props.map && draw.value && snap.value) {
-    props.map.removeInteraction(draw.value);
-    props.map.removeInteraction(snap.value);
-    addInteractions();
-  }
-});
+    if (props.map && draw.value && snap.value) {
+      props.map.removeInteraction(draw.value);
+      props.map.removeInteraction(snap.value);
+      addInteractions();
+    }
+  },
+  {
+    flush: "post"}
+);
 </script>

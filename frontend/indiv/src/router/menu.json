@@ -23,5 +23,6 @@
     {"level": "1", "upper": "Etc"       , "sort": "Etc"         , "authority": "", "path": "/etc/http"          , "id": "Http"            , "name": "Http"            , "component": "@/views/etc/Http.vue"},
     {"level": "1", "upper": "Etc"       , "sort": "Etc"         , "authority": "", "path": "/etc/ajax"          , "id": "Ajax"            , "name": "Ajax"            , "component": "@/views/etc/Ajax.vue"},
     {"level": "1", "upper": "Etc"       , "sort": "Etc"         , "authority": "", "path": "/etc/param"         , "id": "Param"           , "name": "Param"           , "component": "@/views/etc/Param.vue"},
-    {"level": "1", "upper": "Etc"       , "sort": "Etc"         , "authority": "", "path": "/etc/security"      , "id": "Security"        , "name": "Security"        , "component": "@/views/etc/Security.vue"}
+    {"level": "1", "upper": "Etc"       , "sort": "Etc"         , "authority": "", "path": "/etc/security"      , "id": "Security"        , "name": "Security"        , "component": "@/views/etc/Security.vue"},
+    {"level": "1", "upper": "Etc"       , "sort": "Etc"         , "authority": "", "path": "/etc/agGrid"      , "id": "AgGrid"        , "name": "AgGrid"        , "component": "@/views/etc/AgGrid.vue"}
 ]

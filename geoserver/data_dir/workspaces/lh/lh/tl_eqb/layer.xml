@@ -1,0 +1,16 @@
+<layer>
+  <name>tl_eqb</name>
+  <id>LayerInfoImpl-7ebe3903:1956f821c6a:-7fed</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--570ae188:124761b8d78:-7fe0</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl-7ebe3903:1956f821c6a:-7fee</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2025-03-07 07:32:57.83 UTC</dateCreated>
+</layer>

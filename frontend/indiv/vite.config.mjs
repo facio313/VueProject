@@ -10,5 +10,14 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server: {
+    proxy: {
+      '/vworld': {
+        target: 'http://api.vworld.kr',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/vworld/, '')
+      }
+    }
   }
 })

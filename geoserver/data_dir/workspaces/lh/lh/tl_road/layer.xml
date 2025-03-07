@@ -1,0 +1,16 @@
+<layer>
+  <name>tl_road</name>
+  <id>LayerInfoImpl-7ebe3903:1956f821c6a:-7ff7</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--570ae188:124761b8d78:-7fe3</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl-7ebe3903:1956f821c6a:-7ff8</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2025-03-07 07:31:49.332 UTC</dateCreated>
+</layer>

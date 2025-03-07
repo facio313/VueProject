@@ -16,6 +16,7 @@
     {"level": "1", "upper": "Chart"     , "sort": "Chart"       , "authority": "", "path": "/chart/graph"       , "id": "Graph"           , "name": "Graph"           , "component": "@/views/chart/Graph.vue"},
     {"level": "0", "upper": ""          , "sort": "Map"         , "authority": "", "path": "/map"               , "id": "Map"             , "name": "Map"             , "component": "@/views/map/Map.vue"},
     {"level": "1", "upper": "Map"       , "sort": "Map"         , "authority": "", "path": "/map/show"          , "id": "Show"            , "name": "Show"            , "component": "@/views/map/Show.vue"},
+    {"level": "1", "upper": "Map"       , "sort": "Map"         , "authority": "", "path": "/map/projection"    , "id": "Projection"      , "name": "Projection"      , "component": "@/views/map/Projection.vue"},
     {"level": "1", "upper": "Map"       , "sort": "Map"         , "authority": "", "path": "/map/operate"       , "id": "Operate"         , "name": "Operate"         , "component": "@/views/map/Operate.vue"},
     {"level": "0", "upper": ""          , "sort": "Etc"         , "authority": "", "path": "/etc"               , "id": "Etc"             , "name": "Etc"             , "component": "@/views/etc/Etc.vue"},
     {"level": "1", "upper": "Etc"       , "sort": "Etc"         , "authority": "", "path": "/etc/poi"           , "id": "Poi"             , "name": "Poi"             , "component": "@/views/etc/Poi.vue"},
@@ -24,5 +25,5 @@
     {"level": "1", "upper": "Etc"       , "sort": "Etc"         , "authority": "", "path": "/etc/ajax"          , "id": "Ajax"            , "name": "Ajax"            , "component": "@/views/etc/Ajax.vue"},
     {"level": "1", "upper": "Etc"       , "sort": "Etc"         , "authority": "", "path": "/etc/param"         , "id": "Param"           , "name": "Param"           , "component": "@/views/etc/Param.vue"},
     {"level": "1", "upper": "Etc"       , "sort": "Etc"         , "authority": "", "path": "/etc/security"      , "id": "Security"        , "name": "Security"        , "component": "@/views/etc/Security.vue"},
-    {"level": "1", "upper": "Etc"       , "sort": "Etc"         , "authority": "", "path": "/etc/agGrid"      , "id": "AgGrid"        , "name": "AgGrid"        , "component": "@/views/etc/AgGrid.vue"}
+    {"level": "1", "upper": "Etc"       , "sort": "Etc"         , "authority": "", "path": "/etc/agGrid"        , "id": "AgGrid"          , "name": "AgGrid"          , "component": "@/views/etc/AgGrid.vue"}
 ]

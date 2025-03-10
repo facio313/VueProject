@@ -1,11 +1,12 @@
 <template>
     <label for="type">Geometry type &nbsp;</label>
     <select id="type" v-model="typeSelect">
-      <option value="Point">Point</option>
-      <option value="LineString">LineString</option>
-      <option value="Polygon">Polygon</option>
-      <option value="Circle">Circle</option>
+        <option value="Point">Point</option>
+        <option value="LineString">LineString</option>
+        <option value="Polygon">Polygon</option>
+        <option value="Circle">Circle</option>
     </select>
+    <button @click="insertDraw">전송</button>
 </template>
 
 <script setup>
@@ -13,22 +14,23 @@ import { ref, watch } from 'vue';
 import { Draw, Modify, Snap } from 'ol/interaction.js';
 import { Vector as VectorSource } from 'ol/source.js';
 import { Vector as VectorLayer } from 'ol/layer.js';
+import GeoJSON from 'ol/format/GeoJSON';
 
 // `props`로 map 받기
 const props = defineProps({
-  map: Object
+    map: Object
 });
 
 const vectorSource = new VectorSource();
 const vectorLayer = new VectorLayer({
-  source: vectorSource,
-  style: {
-    'fill-color': 'rgba(255, 255, 255, 0.2)',
-    'stroke-color': '#ffcc33',
-    'stroke-width': 2,
-    'circle-radius': 7,
-    'circle-fill-color': '#ffcc33',
-  },
+    source: vectorSource,
+    style: {
+        'fill-color': 'rgba(255, 255, 255, 0.7)',
+        'stroke-color': '#ffcc33',
+        'stroke-width': 2,
+        'circle-radius': 7,
+        'circle-fill-color': '#ffcc33',
+    },
 });
 
 const draw = ref(null);
@@ -38,36 +40,63 @@ const modify = ref(null);
 const typeSelect = ref('Point');
 
 const addInteractions = () => {
-  draw.value = new Draw({
-    source: vectorSource,
-    type: typeSelect.value,
-  });
-  props.map.addInteraction(draw.value);
+    draw.value = new Draw({
+        source: vectorSource,
+        type: typeSelect.value,
+    });
+    props.map.addInteraction(draw.value);
 
-  snap.value = new Snap({ source: vectorSource });
-  props.map.addInteraction(snap.value);
+    snap.value = new Snap({ source: vectorSource });
+    props.map.addInteraction(snap.value);
 };
+
+function insertDraw() {
+    const features = vectorSource.getFeatures();
+    const geoJsonFormat = new GeoJSON();
+    const geoJson = geoJsonFormat.writeFeatures(features);
+    console.log(geoJson);
+    console.log(geoJson['features']);
+
+    const requestBody = {
+        page: null,
+        dto: {
+            geoJson: geoJson
+        }
+    }
+
+    fetch('/api/draw/insert', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+    })
+        .then(response => console.log(response))
+        .catch(error => console.error('Error:', error));
+}
 
 watch(() => props.map, (newMap) => {
     if (newMap) {
-      newMap.addLayer(vectorLayer);
-      modify.value = new Modify({ source: vectorSource });
-      newMap.addInteraction(modify.value);
-      addInteractions();
+        newMap.addLayer(vectorLayer);
+        modify.value = new Modify({ source: vectorSource });
+        newMap.addInteraction(modify.value);
+        addInteractions();
     }
-  },
-  {
-    flush: "post"}
+},
+    {
+        flush: "post"
+    }
 );
 
 watch(typeSelect, () => {
     if (props.map && draw.value && snap.value) {
-      props.map.removeInteraction(draw.value);
-      props.map.removeInteraction(snap.value);
-      addInteractions();
+        props.map.removeInteraction(draw.value);
+        props.map.removeInteraction(snap.value);
+        addInteractions();
     }
-  },
-  {
-    flush: "post"}
+},
+    {
+        flush: "post"
+    }
 );
 </script>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indiv.geometry.GeometryMapper">
+
+	<insert id="insertGeometry" parameterType="indiv.dto.GeometryDTO">
+		<selectKey order="BEFORE" resultType="int" keyProperty="gid">
+			SELECT MAX(GID) + 1
+			FROM TL_TEST
+		</selectKey>
+		INSERT INTO TL_TEST (
+			GID
+			, GEOMETRY
+		) VALUES (
+			#{gid}
+			, ST_GeomFromGeoJSON(#{geoJson})
+		)
+	</insert>
+	
+</mapper>

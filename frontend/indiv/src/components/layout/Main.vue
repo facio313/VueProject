@@ -3,7 +3,7 @@
         <section>
             <RouterView v-slot="{ Component }">
                 <KeepAlive :include="cachedComponents">
-                    <component :is="Component" :key="currentTab"/>
+                    <component :is="Component" :key="currentTab" />
                 </KeepAlive>
             </RouterView>
         </section>
@@ -31,8 +31,6 @@ onMounted(() => {
 
 // 탭 새로고침 방지 (탭 변경 시 캐시 업데이트))
 watch(() => menuStore.activeTab, (newTab) => {
-    console.log(cachedComponents.value);
-    console.log(newTab)
     if (!cachedComponents.value.includes(newTab)) {
         cachedComponents.value.push(newTab);
     }
@@ -49,6 +47,7 @@ main {
     height: calc(100% - 100px);
     overflow: none;
 }
+
 section {
     background-color: white;
     border-radius: 0px 15px 15px 15px;

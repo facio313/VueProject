@@ -1,9 +1,13 @@
 <template>
     <h1>Map</h1>
     <div id="mapBox"></div>
-    <div id="layerControl">
+    <div class="layerControl">
         <span>레이어 On/Off</span>
-        <button v-for="layer in layers" :key="layer.name" @click="toggle(layer.name)">{{ layer.name }}</button>
+        <button v-for="layer in layers" :key="layer.name" @click="toggleVisibility(layer.name)">{{ layer.name }}</button>
+    </div>
+    <div class="layerControl">
+        <span>레이어 삭제/추가</span>
+        <button v-for="layer in layers" :key="layer.name" @click="toggleLayer(layer.name)">{{ layer.name }}</button>
     </div>
     <Draw :map="map"/>    
 </template>
@@ -57,13 +61,31 @@ const createTileLayer = (source, name) => {
     });
 };
 
-function toggle(name) {
+function toggleVisibility(name) {
     const nowLayers = map.value.getLayers().getArray()
     nowLayers.forEach(layer => {
         if (layer.get('name') === name) {
             layer.setVisible(!layer.getVisible());
         }
     });
+}
+
+function toggleLayer(name) {
+    const nowLayers = map.value.getLayers().getArray()
+    let isExist = false;
+    nowLayers.forEach(layer => {
+        if (layer.get('name') === name) {
+            map.value.removeLayer(layer);
+            isExist = true;
+        }
+    });
+    if (!isExist) {
+        layers.forEach(layer => {
+            if (layer.name === name) {
+                map.value.addLayer(createTileLayer(createTileWMSSource(layer.layer, layer.style), name));
+            }
+        });
+    }
 }
 
 // onMounted 훅에서 지도 초기화
@@ -86,8 +108,8 @@ onMounted(() => {
             createTileLayer(createTileWMSSource('lh:tl_entrance', 'lh:tl_entrance'  ), 'entrance'),
         ],
         view: new View({
-            center: fromLonLat([126.9251405697578, 37.53033241217628]),
-            zoom: 16
+            center: fromLonLat([126.9811405697578, 37.47833241217628]),
+            zoom: 18
         }),
     });
 });

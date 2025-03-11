@@ -3,13 +3,20 @@
     <div id="mapBox"></div>
     <div class="layerControl">
         <span>레이어 On/Off</span>
-        <button v-for="layer in layers" :key="layer.name" @click="toggleVisibility(layer.name)">{{ layer.name }}</button>
+        <button v-for="layer in layers" :key="layer.name" @click="toggleVisibility(layer.name)">{{ layer.name
+        }}</button>
     </div>
     <div class="layerControl">
         <span>레이어 삭제/추가</span>
         <button v-for="layer in layers" :key="layer.name" @click="toggleLayer(layer.name)">{{ layer.name }}</button>
     </div>
-    <Draw :map="map"/>    
+    <div class="drawControl">
+        <label>
+            <input type="checkbox" v-model="drawEnabled" />
+            Draw 기능 활성화
+        </label>
+    </div>
+    <Draw v-if="drawEnabled" :map="map" />
 </template>
 
 <script setup>
@@ -22,6 +29,7 @@ import { fromLonLat } from 'ol/proj';
 import Draw from '@/components/map/Draw.vue';
 
 const map = ref(null);
+const drawEnabled = ref(false);
 const API_KEY = ' CD1637AB-53A2-30F7-BF43-CD51495BEB5D';
 const layers = [
     { name: 'sgg', label: 'SGG Layer', layer: 'lh:tl_sgg', style: 'lh:tl_sgg' },
@@ -32,6 +40,7 @@ const layers = [
     { name: 'eqb', label: 'EQB Layer', layer: 'lh:tl_eqb', style: 'lh:tl_eqb' },
     { name: 'buld', label: 'Buld Layer', layer: 'lh:tl_buld', style: 'lh:tl_buld' },
     { name: 'entrance', label: 'Entrance Layer', layer: 'lh:tl_entrance', style: 'lh:tl_entrance' },
+    { name: 'test', label: 'Test Layer', layer: 'lh:tl_test', style: 'lh:tl_test' },
 ];
 
 // TileWMS 소스 생성 함수
@@ -57,7 +66,7 @@ const createTileWMSSource = (layer, style) => {
 const createTileLayer = (source, name) => {
     return new TileLayer({
         source,
-        properties: { name : name }
+        properties: { name: name }
     });
 };
 
@@ -98,14 +107,14 @@ onMounted(() => {
                 attributions: ['© VWorld'],
                 maxZoom: 19,
             })),
-            createTileLayer(createTileWMSSource('lh:tl_sgg'     , 'lh:tl_sgg'       ), 'sgg'),
-            createTileLayer(createTileWMSSource('lh:tl_ground'  , 'lh:tl_ground'    ), 'ground'),
-            createTileLayer(createTileWMSSource('lh:tl_rw'      , 'lh:tl_rw'        ), 'rw'),
-            createTileLayer(createTileWMSSource('lh:tl_road'    , 'lh:tl_road'      ), 'road'),
-            createTileLayer(createTileWMSSource('lh:tl_basic'   , 'lh:tl_basic'     ), 'basic'),
-            createTileLayer(createTileWMSSource('lh:tl_eqb'     , 'lh:tl_eqb'       ), 'eqb'),
-            createTileLayer(createTileWMSSource('lh:tl_buld'    , 'lh:tl_buld'      ), 'buld'),
-            createTileLayer(createTileWMSSource('lh:tl_entrance', 'lh:tl_entrance'  ), 'entrance'),
+            createTileLayer(createTileWMSSource('lh:tl_sgg', 'lh:tl_sgg'), 'sgg'),
+            createTileLayer(createTileWMSSource('lh:tl_ground', 'lh:tl_ground'), 'ground'),
+            createTileLayer(createTileWMSSource('lh:tl_rw', 'lh:tl_rw'), 'rw'),
+            createTileLayer(createTileWMSSource('lh:tl_road', 'lh:tl_road'), 'road'),
+            createTileLayer(createTileWMSSource('lh:tl_basic', 'lh:tl_basic'), 'basic'),
+            createTileLayer(createTileWMSSource('lh:tl_eqb', 'lh:tl_eqb'), 'eqb'),
+            createTileLayer(createTileWMSSource('lh:tl_buld', 'lh:tl_buld'), 'buld'),
+            createTileLayer(createTileWMSSource('lh:tl_entrance', 'lh:tl_entrance'), 'entrance'),
         ],
         view: new View({
             center: fromLonLat([126.9811405697578, 37.47833241217628]),

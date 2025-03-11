@@ -12,7 +12,7 @@
 			, GEOMETRY
 		) VALUES (
 			#{gid}
-			, ST_GeomFromGeoJSON(#{geoJson})
+			, ST_SetSRID(ST_GeomFromGeoJSON(#{geoJson}), 3857)
 		)
 	</insert>
 	

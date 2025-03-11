@@ -18,7 +18,6 @@ import { Vector as VectorLayer } from 'ol/layer.js';
 import GeoJSON from 'ol/format/GeoJSON';
 import { Style, Stroke, Fill, Circle as CircleStyle } from 'ol/style';
 
-// `props`로 map 받기
 const props = defineProps({
     map: Object
 });

@@ -3,8 +3,7 @@
     <div id="mapBox"></div>
     <div class="layerControl">
         <span>레이어 On/Off</span>
-        <button v-for="layer in layers" :key="layer.name" @click="toggleVisibility(layer.name)">{{ layer.name
-        }}</button>
+        <button v-for="layer in layers" :key="layer.name" @click="toggleVisibility(layer.name)">{{ layer.name }}</button>
     </div>
     <div class="layerControl">
         <span>레이어 삭제/추가</span>
@@ -17,16 +16,18 @@
         </label>
     </div>
     <Draw v-if="drawEnabled" :map="map" />
+    <Marker :map="map"/>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, toRaw } from 'vue';
 import 'ol/ol.css';
 import { Map, View } from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import { XYZ, TileWMS } from 'ol/source';
 import { fromLonLat } from 'ol/proj';
 import Draw from '@/components/map/Draw.vue';
+import Marker from '@/components/map/Marker.vue';
 
 const map = ref(null);
 const drawEnabled = ref(false);
@@ -63,10 +64,10 @@ const createTileWMSSource = (layer, style) => {
 };
 
 // TileLayer 생성 함수
-const createTileLayer = (source, name) => {
+const createTileLayer = (layer) => {
     return new TileLayer({
-        source,
-        properties: { name: name }
+        source: createTileWMSSource(layer.layer, layer.style),
+        properties: { name: layer.name }
     });
 };
 
@@ -89,38 +90,57 @@ function toggleLayer(name) {
         }
     });
     if (!isExist) {
-        layers.forEach(layer => {
-            if (layer.name === name) {
-                map.value.addLayer(createTileLayer(createTileWMSSource(layer.layer, layer.style), name));
-            }
-        });
+        const layer = layers.find(layer => layer.name === name);
+        if (layer) {
+            map.value.addLayer(createTileLayer(layer));
+        }
     }
 }
 
-// onMounted 훅에서 지도 초기화
+function getFeatureInfo(event) {
+    const viewResolution = map.value.getView().getResolution();
+    const nowLayer = toRaw(map.value.getLayers().getArray().filter(layer => layer.get('name') == 'buld')[0]);
+    console.log(nowLayer.getSource());
+    const url = nowLayer.getSource().getFeatureInfoUrl(
+        event.coordinate,
+        viewResolution,
+        'EPSG:3857',
+        { INFO_FORMAT: 'application/json' }
+    );
+
+    console.log(url);
+    
+    if (url) {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => console.error(error));
+    }
+}
+
 onMounted(() => {
     map.value = new Map({
         target: 'mapBox',
         layers: [
-            createTileLayer(new XYZ({
-                url: `/vworld/req/wmts/1.0.0/${API_KEY}/Base/{z}/{y}/{x}.png`,
-                attributions: ['© VWorld'],
-                maxZoom: 19,
-            })),
-            createTileLayer(createTileWMSSource('lh:tl_sgg', 'lh:tl_sgg'), 'sgg'),
-            createTileLayer(createTileWMSSource('lh:tl_ground', 'lh:tl_ground'), 'ground'),
-            createTileLayer(createTileWMSSource('lh:tl_rw', 'lh:tl_rw'), 'rw'),
-            createTileLayer(createTileWMSSource('lh:tl_road', 'lh:tl_road'), 'road'),
-            createTileLayer(createTileWMSSource('lh:tl_basic', 'lh:tl_basic'), 'basic'),
-            createTileLayer(createTileWMSSource('lh:tl_eqb', 'lh:tl_eqb'), 'eqb'),
-            createTileLayer(createTileWMSSource('lh:tl_buld', 'lh:tl_buld'), 'buld'),
-            createTileLayer(createTileWMSSource('lh:tl_entrance', 'lh:tl_entrance'), 'entrance'),
+        new TileLayer({
+                source: new XYZ({
+                    url: `/vworld/req/wmts/1.0.0/${API_KEY}/Base/{z}/{y}/{x}.png`,
+                    attributions: ['© VWorld'],
+                    maxZoom: 19,
+                }),
+                properties: { name: 'base' }
+            }),
+            ...layers.map(layer => createTileLayer(layer))
         ],
         view: new View({
             center: fromLonLat([126.9811405697578, 37.47833241217628]),
             zoom: 18
         }),
     });
+
+    map.value.on('click', getFeatureInfo);
 });
 </script>
 

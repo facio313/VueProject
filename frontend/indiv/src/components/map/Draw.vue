@@ -21,7 +21,7 @@ import { Style, Stroke, Fill, Circle as CircleStyle } from 'ol/style';
 const props = defineProps({
     map: Object
 });
-
+const map = props.map
 const vectorSource = new VectorSource();
 const vectorLayer = new VectorLayer({
     source: vectorSource,
@@ -54,10 +54,10 @@ const addInteractions = () => {
             source: vectorSource,
             type: typeSelect.value,
         });
-        props.map.addInteraction(draw.value);
+        map.addInteraction(draw.value);
 
         snap.value = new Snap({ source: vectorSource });
-        props.map.addInteraction(snap.value);
+        map.addInteraction(snap.value);
     }
 };
 
@@ -91,31 +91,31 @@ function insertDraw() {
 
 // 화면에 표시된 후
 onMounted(() => {
-    props.map.addLayer(vectorLayer);
+    map.addLayer(vectorLayer);
     modify.value = new Modify({ source: vectorSource });
-    props.map.addInteraction(modify.value);
+    map.addInteraction(modify.value);
     addInteractions();
 });
 
 // 컨포넌트가 사라지기 직전전
 onBeforeUnmount(() => {
     if (draw.value) {
-        props.map.removeInteraction(draw.value);
+        map.removeInteraction(draw.value);
     }
     if (snap.value) {
-        props.map.removeInteraction(snap.value);
+        map.removeInteraction(snap.value);
     }
-    props.map.removeLayer(vectorLayer);
+    map.removeLayer(vectorLayer);
 });
 
 // 데이터 변경 감지 시
 watch(typeSelect, () => {
-    if (props.map) {
+    if (map) {
         if (draw.value) {
-            props.map.removeInteraction(draw.value);
+            map.removeInteraction(draw.value);
         }
         if (snap.value) {
-            props.map.removeInteraction(snap.value);
+            map.removeInteraction(snap.value);
         }
         addInteractions();
     }
@@ -123,3 +123,7 @@ watch(typeSelect, () => {
     flush: "post"
 });
 </script>
+
+<style scoped>
+
+</style>
